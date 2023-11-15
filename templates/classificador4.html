@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="card__inserir">
+      <div class="lista">
+        <header>
+            <nav>
+                <ul class="navbar-links">
+                    <li>
+                        <a href="/">classificador 1</a>
+                    </li>
+                    <li>
+                        <a href="/classificador2">classificador 2</a>
+                    </li>
+                    <li>
+                        <a href="/classificador3">classificador 3</a>
+                    </li>
+                    <li class="active">
+                        <a href="/classificador4">classificador 4</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <h1>Classificador 4</h1>
+
+        <form id="myForm">
+          <label for="parametro1">Parametro 1:</label><br />
+          <input type="number" id="parametro1" name="parametro1" /><br /><br/>
+          <label for="parametro2">Parametro 2:</label><br />
+          <input type="number" id="parametro2" name="parametro2" /><br /><br />
+          <label for="parametro3">Parametro 3:</label><br />
+          <input type="number" id="parametro3" name="parametro3" /><br /><br />
+          <label for="parametro4">Parametro 4:</label><br />
+          <input type="number" id="parametro4" name="parametro4" /><br /><br />
+          <input type="submit" value="Enviar">
+        </form>
+
+        <p id="responseMessage"></p>
+      </div>
+    </div>
+  </body>
+</html>
