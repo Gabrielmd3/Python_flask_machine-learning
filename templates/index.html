@@ -1,48 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
-    <title>Document</title>
-  </head>
-  <body>
-    <div class="card__inserir">
-      <div class="lista">
-        <header>
-            <nav>
-                <ul class="navbar-links">
-                    <li class="active">
-                        <a href="/">classificador 1</a>
-                    </li>
-                    <li>
-                        <a href="/classificador2">classificador 2</a>
-                    </li>
-                    <li>
-                        <a href="/classificador3">classificador 3</a>
-                    </li>
-                    <li>
-                        <a href="/classificador4">classificador 4</a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        <h1>Classificador 1</h1>
 
-        <form id="myForm">
-          <label for="parametro1">Parametro 1:</label><br />
-          <input type="number" id="parametro1" name="parametro1" /><br /><br/>
-          <label for="parametro2">Parametro 2:</label><br />
-          <input type="number" id="parametro2" name="parametro2" /><br /><br />
-          <label for="parametro3">Parametro 3:</label><br />
-          <input type="number" id="parametro3" name="parametro3" /><br /><br />
-          <label for="parametro4">Parametro 4:</label><br />
-          <input type="number" id="parametro4" name="parametro4" /><br /><br />
-          <input type="submit" value="Enviar">
-        </form>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+  <title>Document</title>
+</head>
 
-        <p id="responseMessage"></p>
-      </div>
+<body>
+  <div class="card__inserir">
+    <div class="lista">
+      <h1>Classificadores</h1>
+
+      <form id="myForm" method="POST">
+        <label for="classifiers">classificadores:</label><br />
+        <select id="dropdownClassifier" name="dropdownClassifier" onchange="mostrarInput()">
+          <option value="nulo">Selecione...</option>
+          <option value="knn">knn</option>
+          <option value="dt">dt</option>
+          <option value="mlp">mlp</option>
+          <option value="rf">rf</option>
+        </select>
+        <br /><br />
+        <label for="parametro1" id="label_parametro1" style="display: none;">Parametro 1:</label><br />
+        <input type="number" id="parametro1" name="parametro1" style="display: none;" /><br /><br />
+
+        <label for="parametro2" id="label_parametro2" style="display: none;">Parametro 2:</label><br />
+        <input type="number" id="parametro2" name="parametro2" style="display: none;" /><br /><br />
+
+        <input type="submit" id="btn" value="Enviar" disabled>
+      </form>
+
     </div>
-  </body>
+    {% if exibir_imagem %}
+    <div>
+      <img src="{{ url_for('static', filename=img) }}" alt="Minha Imagem">
+    </div>
+    {% endif %}
+  </div>
+
+
+  <script>
+    function mostrarInput() {
+      const dropdown = document.getElementById('dropdownClassifier');
+      const inputContainer1 = document.getElementById('parametro1');
+      const labeContainer1 = document.getElementById('label_parametro1');
+      const inputContainer2 = document.getElementById('parametro2');
+      const labeContainer2 = document.getElementById('label_parametro2');
+      const submitBtn = document.getElementById('btn');
+
+      if (dropdown.value === 'knn') {
+        inputContainer1.style.display = 'block';
+        inputContainer1.required = true;
+        inputContainer1.min = '0';
+        labeContainer1.innerHTML = "n_neighbors:"
+        labeContainer1.style.display = '';
+
+        inputContainer2.style.display = 'none';
+        inputContainer2.removeAttribute('min');
+        labeContainer2.style.display = 'none';
+
+
+        submitBtn.disabled = false;
+      }
+      else if (dropdown.value === 'dt') {
+        inputContainer1.style.display = 'block';
+        inputContainer1.min = '2';
+        labeContainer1.innerHTML = "max_leaf_nodes:"
+        labeContainer1.style.display = 'block';
+
+        inputContainer2.style.display = 'block';
+        inputContainer2.min = '0';
+        labeContainer2.innerHTML = "random_state:"
+        labeContainer2.style.display = 'block';
+
+        submitBtn.disabled = false;
+      }
+      else if (dropdown.value === 'mlp') {
+        inputContainer1.style.display = 'block';
+        inputContainer1.min = '0';
+        labeContainer1.innerHTML = "random_state:"
+        labeContainer1.style.display = 'block';
+
+        inputContainer2.style.display = 'block';
+        inputContainer2.min = '1';
+        labeContainer2.innerHTML = "max_inter:"
+        labeContainer2.style.display = 'block';
+
+        submitBtn.disabled = false;
+      }
+      else if (dropdown.value === 'rf') {
+        inputContainer1.style.display = 'block';
+        inputContainer1.min = '1';
+        labeContainer1.innerHTML = "max_depth:"
+        labeContainer1.style.display = 'block';
+
+        inputContainer2.style.display = 'block';
+        inputContainer2.min = '0';
+        labeContainer2.innerHTML = "random_state:"
+        labeContainer2.style.display = 'block';
+
+        submitBtn.disabled = false;
+      }
+      else {
+        inputContainer1.style.display = 'none';
+        inputContainer1.removeAttribute('min');
+        labeContainer1.style.display = 'none';
+
+        inputContainer2.style.display = 'none';
+        inputContainer2.removeAttribute('min');
+        labeContainer2.style.display = 'none';
+
+        submitBtn.disabled = true;
+      }
+    }
+  </script>
+
+</body>
+
+
+
 </html>
