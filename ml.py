@@ -17,26 +17,26 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import classification_report
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, ConfusionMatrixDisplay
 from sklearn.neighbors import KNeighborsClassifier
-def machine_learning(cl,p1, p2):
+def machine_learning(cl,p1, p2, rs):
     # Coleta e Preparação de Dados.
     iris = load_iris()
     X = iris.data # caracteristica
     y = iris.target # rotulos
 
     # Divisão dos Dados em Treinamento e Teste.
-    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=int(rs))
 
     # Escolha do Algoritmo de Machine Learning.
     if cl == "knn":
         clf = KNeighborsClassifier(n_neighbors=int(p1))
     elif cl == "mlp":
-        clf = MLPClassifier(random_state=int(p1), max_iter=int(p2))
+        clf = MLPClassifier(hidden_layer_sizes=(int(p1),), activation=(p2))
     elif cl == "rf":
-        clf = RandomForestClassifier(max_depth=int(p1), random_state=int(p2))
+        clf = RandomForestClassifier(n_estimators=int(p1), max_depth=int(p2))
     elif cl == "dt":
-        clf = DecisionTreeClassifier(max_leaf_nodes=int(p1), random_state=int(p2))
+        clf = DecisionTreeClassifier(criterion=(p1), max_depth=int(p2))
 
 
 
@@ -46,6 +46,10 @@ def machine_learning(cl,p1, p2):
     # Teste / Previsão do Modelo.
     y_pred = clf.predict(X_test)
 
+    accuracy = accuracy_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred, average='weighted')
+    recall = recall_score(y_test, y_pred, average='weighted')
+    f1 = f1_score(y_test, y_pred, average='weighted')
     # Análise dos Resultados.
     cm = confusion_matrix(y_test, y_pred)
 
@@ -54,3 +58,5 @@ def machine_learning(cl,p1, p2):
 
     disp.plot()
     plt.savefig("static/displayimg")
+
+    return accuracy, precision, recall, f1

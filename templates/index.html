@@ -23,11 +23,14 @@
           <option value="rf">rf</option>
         </select>
         <br /><br />
+        <label for="randomstate" id="label_random_state">Random State:</label><br />
+        <input type="number" min="0" id="random_state" name="random_state" required /><br /><br />
+
         <label for="parametro1" id="label_parametro1" style="display: none;">Parametro 1:</label><br />
-        <input type="number" id="parametro1" name="parametro1" style="display: none;" /><br /><br />
+        <input id="parametro1" name="parametro1" style="display: none;" /><br /><br />
 
         <label for="parametro2" id="label_parametro2" style="display: none;">Parametro 2:</label><br />
-        <input type="number" id="parametro2" name="parametro2" style="display: none;" /><br /><br />
+        <input id="parametro2" name="parametro2" style="display: none;" /><br /><br />
 
         <input type="submit" id="btn" value="Enviar" disabled>
       </form>
@@ -36,6 +39,11 @@
     {% if exibir_imagem %}
     <div>
       <img src="{{ url_for('static', filename=img) }}" alt="Minha Imagem">
+      <br><br>
+      <p>Accuracy: {{ accuracy }}</p>
+      <p>Precision: {{ precision }}</p>
+      <p>Recall: {{ recall }}</p>
+      <p>F1-Score: {{ f1 }}</p>
     </div>
     {% endif %}
   </div>
@@ -54,6 +62,7 @@
         inputContainer1.style.display = 'block';
         inputContainer1.required = true;
         inputContainer1.min = '0';
+        inputContainer1.type = 'number';
         labeContainer1.innerHTML = "n_neighbors:"
         labeContainer1.style.display = '';
 
@@ -64,41 +73,49 @@
 
         submitBtn.disabled = false;
       }
+
       else if (dropdown.value === 'dt') {
         inputContainer1.style.display = 'block';
-        inputContainer1.min = '2';
-        labeContainer1.innerHTML = "max_leaf_nodes:"
+        inputContainer1.min = '0';
+        inputContainer1.type = 'text';
+        labeContainer1.innerHTML = "criterion:"
         labeContainer1.style.display = 'block';
 
         inputContainer2.style.display = 'block';
         inputContainer2.min = '0';
-        labeContainer2.innerHTML = "random_state:"
+        inputContainer2.type = 'number';
+        labeContainer2.innerHTML = "max depth:"
         labeContainer2.style.display = 'block';
 
         submitBtn.disabled = false;
       }
+
       else if (dropdown.value === 'mlp') {
         inputContainer1.style.display = 'block';
-        inputContainer1.min = '0';
-        labeContainer1.innerHTML = "random_state:"
+        inputContainer1.min = '1';
+        inputContainer1.type = 'number';
+        labeContainer1.innerHTML = "hidden layer sizes:"
+        labeContainer1.style.display = 'block';
+
+        inputContainer2.style.display = 'block';
+        inputContainer2.type = "text";
+        labeContainer2.innerHTML = "activation:"
+        labeContainer2.style.display = 'block';
+
+        submitBtn.disabled = false;
+      }
+
+      else if (dropdown.value === 'rf') {
+        inputContainer1.style.display = 'block';
+        inputContainer1.min = '1';
+        inputContainer1.type = 'number';
+        labeContainer1.innerHTML = "n estimators:"
         labeContainer1.style.display = 'block';
 
         inputContainer2.style.display = 'block';
         inputContainer2.min = '1';
-        labeContainer2.innerHTML = "max_inter:"
-        labeContainer2.style.display = 'block';
-
-        submitBtn.disabled = false;
-      }
-      else if (dropdown.value === 'rf') {
-        inputContainer1.style.display = 'block';
-        inputContainer1.min = '1';
-        labeContainer1.innerHTML = "max_depth:"
-        labeContainer1.style.display = 'block';
-
-        inputContainer2.style.display = 'block';
-        inputContainer2.min = '0';
-        labeContainer2.innerHTML = "random_state:"
+        inputContainer2.type = 'number';
+        labeContainer2.innerHTML = "max Depth:"
         labeContainer2.style.display = 'block';
 
         submitBtn.disabled = false;
