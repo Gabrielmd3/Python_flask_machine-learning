@@ -36,7 +36,7 @@
       </form>
 
     </div>
-    {% if exibir_imagem %}
+    {% if e %}
     <div>
       <img src="{{ url_for('static', filename=img) }}" alt="Minha Imagem">
       <br><br>
@@ -46,6 +46,7 @@
       <p>F1-Score: {{ f1 }}</p>
     </div>
     {% endif %}
+
   </div>
 
 
@@ -63,11 +64,13 @@
         inputContainer1.required = true;
         inputContainer1.min = '0';
         inputContainer1.type = 'number';
+        inputContainer1.removeAttribute('placeholder');
         labeContainer1.innerHTML = "n_neighbors:"
         labeContainer1.style.display = '';
 
         inputContainer2.style.display = 'none';
         inputContainer2.removeAttribute('min');
+        inputContainer2.removeAttribute('placeholder');
         labeContainer2.style.display = 'none';
 
 
@@ -77,6 +80,9 @@
       else if (dropdown.value === 'dt') {
         inputContainer1.style.display = 'block';
         inputContainer1.min = '0';
+        inputContainer1.required = true;
+        inputContainer1.placeholder = "gini, entropy, log_loss"
+        inputContainer1.backgroundColor = 'yellow'
         inputContainer1.type = 'text';
         labeContainer1.innerHTML = "criterion:"
         labeContainer1.style.display = 'block';
@@ -84,6 +90,7 @@
         inputContainer2.style.display = 'block';
         inputContainer2.min = '0';
         inputContainer2.type = 'number';
+        inputContainer2.removeAttribute('placeholder');
         labeContainer2.innerHTML = "max depth:"
         labeContainer2.style.display = 'block';
 
@@ -93,12 +100,15 @@
       else if (dropdown.value === 'mlp') {
         inputContainer1.style.display = 'block';
         inputContainer1.min = '1';
+        
         inputContainer1.type = 'number';
         labeContainer1.innerHTML = "hidden layer sizes:"
         labeContainer1.style.display = 'block';
+        inputContainer1.removeAttribute('placeholder');
 
         inputContainer2.style.display = 'block';
         inputContainer2.type = "text";
+        inputContainer2.placeholder = "relu, identity, logistic, tanh"
         labeContainer2.innerHTML = "activation:"
         labeContainer2.style.display = 'block';
 
@@ -109,12 +119,14 @@
         inputContainer1.style.display = 'block';
         inputContainer1.min = '1';
         inputContainer1.type = 'number';
+        inputContainer1.removeAttribute('placeholder');
         labeContainer1.innerHTML = "n estimators:"
         labeContainer1.style.display = 'block';
 
         inputContainer2.style.display = 'block';
         inputContainer2.min = '1';
         inputContainer2.type = 'number';
+        inputContainer2.removeAttribute('placeholder');
         labeContainer2.innerHTML = "max Depth:"
         labeContainer2.style.display = 'block';
 

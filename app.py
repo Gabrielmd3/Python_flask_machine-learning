@@ -7,14 +7,14 @@ app = Flask(__name__)
 def index():
   if request.method == "POST":
     req = request.form
-    classificador = req["dropdownClassifier"]
     parametro1 = (req["parametro1"])
-    parametro2 = (req["parametro2"])
     rs = (req["random_state"])
+    parametro2 = (req["parametro2"])
+    classificador = req["dropdownClassifier"]
     accuracy, precision, recall, f1 = ml.machine_learning(classificador, parametro1, parametro2, rs)
-    exibir_imagem = True
-    return render_template("index.html", img="displayimg.png", exibir_imagem=exibir_imagem, accuracy=accuracy, precision=precision,
-                            recall=recall, f1=f1)
+    e = True
+    return render_template("index.html", e=e, precision=precision,
+                            recall=recall, accuracy=accuracy, f1=f1, img="displayimg.png",)
   return render_template("index.html")
 
 if __name__ == "__main__":
